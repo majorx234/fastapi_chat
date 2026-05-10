@@ -1,0 +1,50 @@
+# Logs
+logs/
+*.log
+
+# local notes
+notes.md
+
+# Python / Backend
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+.pytest_cache/
+
+
+# Virtual environments
+env/
+venv/
+backend/env/
+
+
+# IDE / Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+connection.xml
+notizen.txt
+
+# OS
+.DS_Store
+
+# Backend specific 
+build/
+src/fastapi_chat/build

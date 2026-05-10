@@ -1,0 +1,24 @@
+[project]
+name = "fastapi_chat"
+version = "0.1.0"
+description = "Example FastAPI backend with Chat functionality"
+authors = [
+    { name = "MajorX234", email = "majorx234@googlemail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+
+dependencies = [
+    "fastapi<=0.136.1",
+    "uvicorn[standard]<=0.46.0",
+    "pydantic<=2.13.3",
+    "pydantic-settings<=2.14.0",
+    "psycopg2-binary<=2.9.12",
+    "sqlmodel>=0.0.38",
+    "sqlalchemy>=2.0.49",
+]
+
+[tool.setuptools.packages.find]
+where = [
+    "src/"
+]
