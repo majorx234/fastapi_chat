@@ -1,15 +1,10 @@
-from fastapi import (
-        FastAPI,
-        Request,
-        status
-)
-from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.middleware.wsgi import WSGIMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
 
 from fastapi_chat.config.backend_config import Config
+from fastapi_chat.connection_manager import ConnectionManager
+from fastapi_chat.router.ws_router import WsRouter
 
 
 class Backend:
@@ -19,13 +14,13 @@ class Backend:
      """
     def __init__(self,
                  config: Config):
+
+        manager = ConnectionManager()
         self.app = FastAPI(
             title="FastAPI ChatServer",
             description="backend functionalities for chat backend",
             swagger_ui_parameters={"persistAuthorization": True}
         )
-        self.app.mount("/",
-                       StaticFiles(directory="./src/fastapi_chat/static"), name="static")
 
         # allowing cors
         self.app.add_middleware(
@@ -35,6 +30,13 @@ class Backend:
             allow_methods=["*"],
             allow_headers=["*"],
         )
+
+        # set up routers
+        ws_router = WsRouter(manager)
+        self.app.include_router(ws_router.get_router())
+        self.app.mount("/",
+                       StaticFiles(directory="./src/fastapi_chat/static"),
+                       name="static")
 
     def get_app(self):
         return self.app
