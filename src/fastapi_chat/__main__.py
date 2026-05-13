@@ -14,7 +14,10 @@ def main():
     config = Config()
     backend = Backend(config)
 
-    uvicorn.run(backend.get_app(), host=config.host, port=config.port)
+    uvicorn.run(backend.get_app(),
+                host=config.host,
+                port=config.port,
+                log_config="./src/fastapi_chat/config/log_conf.yaml")
 
 
 if __name__ == '__main__':
