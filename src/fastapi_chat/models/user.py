@@ -15,8 +15,8 @@ class User(BaseModel):
     """User-Model"""
     username: str
     email: str
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
+#    first_name: Optional[str] = None
+#    last_name: Optional[str] = None
     role: UserRole
     is_active: Optional[bool] = True
 
