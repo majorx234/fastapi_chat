@@ -5,6 +5,7 @@ import uvicorn
 
 from fastapi_chat.config.backend_config import Config
 from fastapi_chat.backend import Backend
+from fastapi_chat.database import DatabaseSession
 
 
 def main():
@@ -12,7 +13,8 @@ def main():
     Main class which gets called first when program starts
     """
     config = Config()
-    backend = Backend(config)
+    db = DatabaseSession(config)
+    backend = Backend(config, db)
 
     uvicorn.run(backend.get_app(),
                 host=config.host,

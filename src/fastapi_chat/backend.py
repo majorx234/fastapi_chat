@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi_chat.config.backend_config import Config
 from fastapi_chat.connection_manager import ConnectionManager
 from fastapi_chat.router.ws_router import WsRouter
+from fastapi_chat.database import DatabaseSession
 
 
 class Backend:
@@ -13,8 +14,10 @@ class Backend:
      ...
      """
     def __init__(self,
-                 config: Config):
+                 config: Config,
+                 db: DatabaseSession):
 
+        self.db = db
         manager = ConnectionManager()
         self.app = FastAPI(
             title="FastAPI ChatServer",
