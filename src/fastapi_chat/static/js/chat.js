@@ -1,7 +1,8 @@
 // TODO Login systen
 // Generate a random ID for this session to simulate different users
 const clientId = "User_" + Math.floor(Math.random() * 1000);
-const socket = new WebSocket(`ws://localhost:8000/ws/${clientId}`);
+const url = "ws://" + document.location.hostname + ":8000/ws/" + clientId;
+const socket = new WebSocket(url);
 var inputField = document.getElementById('messageInput');
 var typingDiv = document.getElementById('typing-indicator');
 var messagesDiv = document.getElementById('messages');
