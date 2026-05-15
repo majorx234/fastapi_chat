@@ -35,3 +35,8 @@ class UserCreate(BaseModel):
 #    last_name: str
     role: UserRole
     hashed_password: str
+
+
+class LoginUser(BaseModel):
+    username: str
+    hashed_password: str

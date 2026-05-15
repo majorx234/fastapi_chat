@@ -1,0 +1,25 @@
+from fastapi import APIRouter, Request, status
+import json
+from fastapi_chat.database import DatabaseSession
+from fastapi_chat.models.user import LoginUser
+
+
+class LoginRouter:
+    def __init__(self, db: DatabaseSession):
+        self.db = db
+        self._router = APIRouter(
+            prefix="/login",
+            tags=['web socket'],
+        )
+        self._router.add_api_route(
+            "/login",
+            self.post_user_psw,
+            methods=["POST"]
+        )
+
+    def post_user_psw(self, user: LoginUser, request: Request):
+        print(f'user: {user}')
+        return status.HTTP_200_OK
+
+    def get_router(self):
+        return self._router

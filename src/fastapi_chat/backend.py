@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi_chat.config.backend_config import Config
 from fastapi_chat.connection_manager import ConnectionManager
 from fastapi_chat.router.ws_router import WsRouter
+from fastapi_chat.router.login_router import LoginRouter
 from fastapi_chat.database import DatabaseSession
 
 
@@ -36,6 +37,8 @@ class Backend:
 
         # set up routers
         ws_router = WsRouter(manager)
+        login_router = LoginRouter(db)
+        self.app.include_router(login_router.get_router())
         self.app.include_router(ws_router.get_router())
         self.app.mount("/",
                        StaticFiles(directory="./src/fastapi_chat/static"),
