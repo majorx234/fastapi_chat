@@ -1,5 +1,5 @@
 from sqlmodel import Session, create_engine, select
-from config.backend_config import Config
+from fastapi_chat.config.backend_config import Config
 
 
 class DatabaseSession:
