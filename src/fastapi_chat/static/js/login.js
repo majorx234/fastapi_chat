@@ -9,14 +9,14 @@ function logEvent(msg) {
 }
 
 function sendLogin() {
-     let end_point_name = "login";
+     let end_point_name = "login/login";
      let variable_context = "login: ";
-     let user_name = document.getElementById("usernameInput").value;
+     let username = document.getElementById("usernameInput").value;
      let password = document.getElementById("passwordInput").value;
-     let password_hash = forge_sha256(password + "salt29562");
+     let hashed_password = forge_sha256(password + "salt29562");
      let json_data = {
-         user_name: user_name,
-         password_hash: password_hash
+         username: username,
+         hashed_password: hashed_password
      };
      let response_handler = (response_text) => {
          let json_data = JSON.parse(response_text);
