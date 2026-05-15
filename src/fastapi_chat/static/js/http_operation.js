@@ -5,7 +5,7 @@ export function httpGet(endpoint_name, variable_context, response_handler, token
             response_handler(this.responseText);
         }
     };
-    let endpoint = "http://" + location.hostname + ":8080/" + endpoint_name;
+    let endpoint = "http://" + location.hostname + ":8000/" + endpoint_name;
     xmlHttp.open("GET", endpoint, true);
     if (token) {
         xmlHttp.setRequestHeader('Authorization', 'Bearer ' + token);
@@ -20,7 +20,7 @@ export function httpPost(endpoint_name, data, variable_context, response_handler
             response_handler(this.responseText);
         }
     };
-    let endpoint = "http://" + location.hostname + ":8080/" + endpoint_name;
+    let endpoint = "http://" + location.hostname + ":8000/" + endpoint_name;
     xmlHttp.open("POST", endpoint, true);
     if (data_type == "json") {
         xmlHttp.setRequestHeader('Content-type', 'application/json');
@@ -35,7 +35,7 @@ export function httpPost(endpoint_name, data, variable_context, response_handler
 }
 
 export function httpPostFetch(endpoint_name, data, variable_context, response_handler, token, data_type="json"){
-    let endpoint = "http://" + location.hostname + ":8080/" + endpoint_name;
+    let endpoint = "http://" + location.hostname + ":8000/" + endpoint_name;
     let content_type = "text/html";
     let header = {
         Accept: "application/json",
@@ -71,7 +71,7 @@ export function httpPostFetch(endpoint_name, data, variable_context, response_ha
 }
 
 export function downloadFile(path, fileName, token){
-    let url = "http://" + location.hostname + ":8080/" + path;
+    let url = "http://" + location.hostname + ":8000/" + path;
     fetch(url, { headers: {Authorization: 'Bearer ' + token, method: 'get', mode: 'no-cors', referrerPolicy: 'no-referrer' }})
         .then(res => res.blob())
         .then(res => {
