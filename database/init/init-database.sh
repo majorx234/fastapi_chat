@@ -14,17 +14,11 @@ psql -v ON_ERROR_STOP=1 --username "$DATABASE_USER" --dbname "$DATABASE_NAME" <<
            (id SERIAL PRIMARY KEY,
             username varchar(255),
             email varchar(255) UNIQUE,
-            role varchar(20) NOT NULL UNIQUE,
+            role varchar(20) NOT NULL,
             hashed_password varchar(255) NOT NULL);
-    INSERT INTO chatuser (role)
-    VALUES
-      ('admin'),
-      ('chatter'),
-      ('ai'),
-      ('viewer');
     INSERT INTO chatuser (username, email, role, hashed_password)
            VALUES ('testuser1', 'test1@suer.de', 'chatter', 'ACDC');
     INSERT INTO chatuser (username, email, role, hashed_password)
-           VALUES ('testuder2', 'test2@suer.de', 'chatter', '1337');
+           VALUES ('testuser2', 'test2@suer.de', 'chatter', '1337');
 EOSQL
 
