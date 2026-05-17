@@ -12,5 +12,5 @@ class Config(BaseSettings):
     # database
     db_hostname: str = Field(default="db", alias="POSTGRES_HOST")
     db_port: int = 5432
-    db_user:str = "testuser"
+    db_user: str = "testuser"
     db_password: str = "1312"
