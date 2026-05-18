@@ -7,7 +7,7 @@ from fastapi_chat.connection_manager import ConnectionManager
 from fastapi_chat.router.ws_router import WsRouter
 from fastapi_chat.router.login_router import LoginRouter
 from fastapi_chat.database import DatabaseSession
-
+from fastapi_chat.token_handler import TokenHandler
 
 class Backend:
     """
@@ -19,6 +19,8 @@ class Backend:
                  db: DatabaseSession):
 
         self.db = db
+        self.token_handler = TokenHandler(config.secret_key,
+                                          config.token_expire_time)
         manager = ConnectionManager()
         self.app = FastAPI(
             title="FastAPI ChatServer",
@@ -37,7 +39,7 @@ class Backend:
 
         # set up routers
         ws_router = WsRouter(manager)
-        login_router = LoginRouter(db)
+        login_router = LoginRouter(db, self.token_handler)
         self.app.include_router(login_router.get_router())
         self.app.include_router(ws_router.get_router())
         self.app.mount("/",

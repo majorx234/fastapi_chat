@@ -1,9 +1,9 @@
 from pydantic import BaseModel
 from typing import Optional
-from enum import Enum
+from enum import StrEnum
 
 
-class UserRole(Enum):
+class UserRole(StrEnum):
     """Role as Enum"""
     ADMIN = "admin"
     CHATTER = "chatter"
@@ -40,3 +40,9 @@ class UserCreate(BaseModel):
 class LoginUser(BaseModel):
     username: str
     hashed_password: str
+
+
+class LoginInfo(BaseModel):
+    token: str
+    role: Optional[UserRole]
+    info_msg: Optional[str]

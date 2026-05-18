@@ -1,6 +1,7 @@
 from typing import Set, Optional
 from pydantic import Field
 from pydantic_settings import BaseSettings
+from datetime import timedelta
 
 
 class Config(BaseSettings):
@@ -14,3 +15,7 @@ class Config(BaseSettings):
     db_port: int = 5432
     db_user: str = "testuser"
     db_password: str = "1312"
+
+    # token handler
+    secret_key: str = Field(default="1312", alias="TOKEN_KEY")
+    token_expire_time: timedelta = timedelta(minutes=30)
