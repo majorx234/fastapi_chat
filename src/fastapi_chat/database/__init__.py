@@ -11,11 +11,7 @@ class DatabaseSession:
         db_name = "test_db"
 
         self.engine = create_engine(f'postgresql+psycopg2://{user}:{password}@{hostname}:{port}/{db_name}')
-
         self.session = Session(self.engine)
 
     def query(self, sql_statement):
-        rows = []
-        for row in self.session.exec(sql_statement):
-            rows.append(row)
-        return rows
+        return self.session.exec(sql_statement)
