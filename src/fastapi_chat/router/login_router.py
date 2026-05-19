@@ -32,8 +32,7 @@ class LoginRouter:
         )
 
     def post_user_psw(self, user: LoginUser, request: Request):
-        typeof_username = type(user.username)
-        access_token = None
+        access_token = ""
         http_status = status.HTTP_401_UNAUTHORIZED
         msg = "error user/psw invalid"
         if self.user_dbi.login(user.username, user.hashed_password):

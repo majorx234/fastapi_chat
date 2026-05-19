@@ -20,5 +20,7 @@ psql -v ON_ERROR_STOP=1 --username "$DATABASE_USER" --dbname "$DATABASE_NAME" <<
            VALUES ('testuser1', 'test1@suer.de', 'chatter', 'ACDC');
     INSERT INTO chatuser (username, email, role, hashed_password)
            VALUES ('testuser2', 'test2@suer.de', 'chatter', '1337');
+    INSERT INTO chatuser (username, email, role, hashed_password)
+           VALUES ('testuser3', 'test3@suer.de', 'chatter', '8b9e5afb166d410f5b7c30ce7d7f9a205e2132dd696ec57ad746feabb4d60cdc');
 EOSQL
 
