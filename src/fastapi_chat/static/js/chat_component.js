@@ -80,10 +80,8 @@ class ChatComponent extends HTMLElement {
     constructor() {
         super();
         this._token = null;
+        this.socket = null;
         // TODO: better clientid handling
-        this.clientId = "User_" + Math.floor(Math.random() * 1000);
-        this.url = "ws://" + document.location.hostname + ":8000/ws/" + this.clientId;
-        this.socket = new WebSocket(this.url);
         this.typingTimeout = 0;
 
         this.root = this.attachShadow({mode: "closed"});
@@ -108,7 +106,7 @@ class ChatComponent extends HTMLElement {
         let inputField = this.root.querySelector("#messageInput");
         const content = inputField.value;
         if (content) {
-            this.socket.send(JSON.stringify({ type: 'chat', content: content }));
+            if(this.socket) this.socket.send(JSON.stringify({ type: 'chat', content: content }));
             this.appendMessage(`Me: ${content}`, true);
             inputField.value = '';
             this.sendTypingStatus(false); // Stop typing when sent
@@ -116,7 +114,7 @@ class ChatComponent extends HTMLElement {
     }
 
     sendTypingStatus(isTyping) {
-        this.socket.send(JSON.stringify({ type: 'typing', is_typing: isTyping }));
+        if(this.socket) this.socket.send(JSON.stringify({ type: 'typing', is_typing: isTyping }));
     }
 
     updateTypingStatus(user, isTyping) {
@@ -125,11 +123,12 @@ class ChatComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        let token = this._token;
+        let url = "ws://" + document.location.hostname + ":8000/ws/" + this.clientId;
+        this.socket = new WebSocket(url);
         let inputField = this.root.querySelector("#messageInput");
 
         // Handle incoming messages
-        this.socket.onmessage = function(event) {
+        if(this.socket) this.socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
 
             if (data.type === 'chat') {
@@ -160,7 +159,36 @@ class ChatComponent extends HTMLElement {
         });
 
         console.log(`Connected as ${this.clientId}`);
+    }
 
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === "token"){
+            if (oldValue !== newValue) {
+                this._token = newValue;
+            }
+        }
+        if (name === "clientId"){
+            this.outputToConsole(newValue);
+            if (oldValue !== newValue) {
+                this.clientId = newValue;
+            }
+        }
+    }
+
+    /* getter setter */
+    get token() {
+        return this.getAttribute("token");
+    }
+    set token(val) {
+        this.setAttribute("token", val);
+        this._token = val;
+    }
+    get clientId() {
+        return this.getAttribute("clientId");
+    }
+
+    set clientId(val) {
+        this.setAttribute("clientId", val);
     }
 }
 
