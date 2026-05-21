@@ -19,8 +19,10 @@ function create_login() {
         // init_folder_structure();
         let content_tag = document.getElementById("content");
         let chat_tag = document.createElement("chat-component");
-        chat_tag.token = token_event.detail;
-        token = token_event.detail;
+        let token_data = token_event.detail;
+        chat_tag.token = token_data.token;
+        chat_tag.clientId = token_data.user_name;
+
         content_tag.innerHTML = "";
         // TODO: create logout component
         login_component_tag.innerHTML = "";
