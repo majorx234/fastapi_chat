@@ -89,7 +89,11 @@ class LoginComponent extends HTMLElement {
             let response_handler = (response_text) => {
                 let json_object_data = JSON.parse(response_text);
                 this.global_token = json_object_data["token"];
-                this.tokenEvent(this.global_token);
+                let token_data = {
+                    user_name: user_name,
+                    token: this.global_token
+                }
+                this.tokenEvent(token_data);
                 this.logEvent(variable_context + response_text);
             };
             let json_object_data = {
