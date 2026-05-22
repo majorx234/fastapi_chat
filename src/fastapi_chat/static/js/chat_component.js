@@ -1,3 +1,5 @@
+import "./marked.umd.js"
+
 const template = document.createElement("template");
 template.innerHTML = `
 <style>
@@ -97,7 +99,7 @@ class ChatComponent extends HTMLElement {
         let messagesDiv = this.root.querySelector("#messages");
         const div = document.createElement('div');
         div.className = `msg ${isMe ? 'me' : ''}`;
-        div.innerText = text;
+        div.innerHTML = marked.parse(text);
         messagesDiv.appendChild(div);
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
@@ -107,7 +109,7 @@ class ChatComponent extends HTMLElement {
         const content = inputField.value;
         if (content) {
             if(this.socket) this.socket.send(JSON.stringify({ type: 'chat', content: content }));
-            this.appendMessage(`Me: ${content}`, true);
+            this.appendMessage(content, true);
             inputField.value = '';
             this.sendTypingStatus(false); // Stop typing when sent
         }
